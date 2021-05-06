@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&family=Roboto+Mono&display=swap"
+        rel="stylesheet">
+    <title>Boxes Game</title>
+</head>
+
+<body style="text-align: center;font-family: 'Roboto Mono', monospace;">
+
+    <p id="output"></p>
+    <script>
+
+        let box;
+        let array = [];
+        let count = 0;
+        let countDraw = 0;
+
+        let rightPressed = false;
+        let leftPressed = false;
+        let upPressed = false;
+        let downPressed = false;
+
+        let redArray = [];
+
+        for (let index = 0; index < 36; index++) {
+
+            box = document.createElement("div");
+            box.style.width = "50px";
+            box.style.height = "50px";
+            box.style.backgroundColor = "black";
+            box.style.margin = "5px";
+            box.style.borderRadius = "35px";
+            box.style.display = "inline-block";
+
+            document.body.appendChild(box);
+            console.log(box);
+            array[index] = box;
+
+            countDraw++;
+            if (countDraw % 6 == 0) {
+                document.write("<br>");
+            }
+
+            if (index == 32) {// start point
+                box.style.backgroundColor = "green";
+            }
+        }
+
+
+        let random = Math.floor((Math.random() * 31));
+        let winPoint = array[random];
+        winPoint.style.backgroundColor = "Orange";
+
+
+        let startPoint = 32;//x
+        let endPoint = 32;//y
+        let oldObj = array[endPoint];
+        let newObj = array[startPoint];
+
+        for (let i = 0; i < 6;) {
+            let random2 = Math.floor((Math.random() * 36));
+
+            //console.log(redArray);
+            if (random2 != random && random2 != startPoint && random2 != random - 1 && random2 != random + 1 && random2 != random + 6 && random2 != 33) {
+                redArray[i] = array[random2].style.backgroundColor = "red";
+                i++;
+            }
+        }
+
+        document.onkeydown = function downKey(e) {
+
+            if (e.keyCode == '37') {
+                // left arrow
+                startPoint -= 1;
+                newObj = array[startPoint];
+                rightPressed = true;
+                console.log("r");
+
+                if (newObj.style.backgroundColor != "red" && newObj != winPoint) {
+                    oldObj = array[endPoint];
+                    endPoint -= 1;
+                    newObj.style.backgroundColor = "green";
+                    oldObj.style.backgroundColor = "black";
+                }
+                else if (newObj.style.backgroundColor == "red") {
+                    alert("You losssssss");
+                }
+                else if (winPoint == newObj) {
+                    alert("You win ^^");
+                }
+            }
+
+            else if (e.keyCode == '39') {
+                // right arrow
+                startPoint += 1;
+                newObj = array[startPoint];
+                rightPressed = true;
+                console.log("r");
+
+                if (newObj.style.backgroundColor != "red" && newObj != winPoint) {
+                    oldObj = array[endPoint];
+                    endPoint += 1;
+                    newObj.style.backgroundColor = "green";
+                    oldObj.style.backgroundColor = "black";
+                }
+                else if (newObj.style.backgroundColor == "red") {
+                    alert("You losssssss");
+                }
+                else if (newObj.style.backgroundColor == "Orange") {
+                    alert("You win ^^");
+                }
+
+            }
+
+            else if (e.keyCode == '38') {
+                // up arrow
+                startPoint -= 6;
+                newObj = array[startPoint];
+                rightPressed = true;
+                console.log("r");
+
+                if (newObj.style.backgroundColor != "red" && newObj != winPoint) {
+                    oldObj = array[endPoint];
+                    endPoint -= 6;
+                    newObj.style.backgroundColor = "green";
+                    oldObj.style.backgroundColor = "black";
+                }
+                else if (newObj.style.backgroundColor == "red") {
+                    alert("You losssssss");
+                }
+                else if (newObj == winPoint) {
+                    alert("You win ^^");
+                }
+
+            }
+            else if (e.keyCode == '40') {
+                // down arrow
+                startPoint += 6;
+                newObj = array[startPoint];
+                rightPressed = true;
+                console.log("r");
+
+                if (newObj.style.backgroundColor != "red" && newObj != winPoint) {
+                    oldObj = array[endPoint];
+                    endPoint += 6;
+                    newObj.style.backgroundColor = "green";
+                    oldObj.style.backgroundColor = "black";
+                }
+                else if (newObj.style.backgroundColor == "red") {
+                    alert("You losssssss");
+                }
+                else if (newObj == winPoint) {
+                    alert("You win ^^");
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>
